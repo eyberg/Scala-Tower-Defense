@@ -13,7 +13,7 @@ what you need:
 
   * scala
 
-  * a color terminal (unless you are living in your cave
+  * a 80x25 color terminal (unless you are living in your cave
   and still use a monochrome monitor I'm assuming you
   have this -- the game really won't be fun w/out it)
 
@@ -22,10 +22,6 @@ TODO:
   * allow user too choose between creeps and towers
   * multiplayer online? heads up and so forth?
   * fix table layout
-  * convert enemy position to x,y coords
-  * convert tower position to x,y coords
-  * add in tower class
-  * add in enemy class
   * start adding in some proper testing
   * should not have to press enter for input
   * create screen formatter to deal with formatting

@@ -204,8 +204,9 @@ object Dtd {
   class listenInput() extends Actor {
     def act() {
       while(true) {
-        var uinput = Console.readLine
-        processInput(uinput)
+        var uinput = readLine
+        //var uinput:Char = System.in.read().asInstanceOf[Char]
+        processInput(uinput) //.toString)
       }
     }
   }
