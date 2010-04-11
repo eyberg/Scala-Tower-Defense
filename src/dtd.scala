@@ -7,12 +7,14 @@ object Dtd {
   var shapes = Array("X", "0", "%")
 
   // holds x,y positions of enemies
-  var positions = new Array[Int](21)
+  var positions = new Array[Array[Int]](21)
   var log = new Array[String](21)
 
   def main(args: Array[String]) {
 
     val listener = new listenInput
+
+    initBoard()
 
     listener.start
 
@@ -33,11 +35,25 @@ object Dtd {
 
   }
 
+  // initialize our gameboard
+  def initBoard() {
+    for(i <- 0 to positions.size - 1) {
+      positions(i) = new Array[Int](41)
+    }
+  }
+
   // move enemies through the grid
-  def moveWave():Array[Int] = {
-    var result = new Array[Int](21)
-    for(i <- 0 to 20) {
-      result((i+2)%21) = positions(i)
+  def moveWave():Array[Array[Int]] = {
+
+    var result = new Array[Array[Int]](21)
+
+    // initialize our result array
+    for(i <- 0 to result.size - 1) {
+      result(i) = new Array[Int](41)
+    }
+ 
+    for(i <- 0 to positions.size - 1) {
+      result(0)((i+2)%21) = positions(0)(i)
     }
 
     result
@@ -49,7 +65,7 @@ object Dtd {
 
     for( i <- 0 to enemies) {
       var rand: scala.util.Random = new scala.util.Random()
-      positions((rand.nextDouble()*positions.size-1).toInt) = 1
+      positions(0)((rand.nextDouble()*positions.size-1).toInt) = 1
     }
 
   }
@@ -99,17 +115,43 @@ object Dtd {
     println( drawBanner )
 
     println( ("-"*40) + "\t" + ("-" * 10) )
-    for(i <- 0 to 20) {
 
-      if (positions(i) == 1) {
+    for(i <- 0 to positions.size - 1) {
+      for(c <- 0 to positions(i).size - 1) {
+
+        // first  column
+        if(c == 0) {
+          print("|") 
+
+        // enemy
+        } else if (positions(i)(c) == 1) {
+          print(generateEnemy)
+
+        // tower
+        } else if (positions(i)(c) == 2) {
+          print(drawTower)
+
+        // blank
+        } else {
+          print(" ")
+        }
+      
+      }
+      
+      // draw our sidebar portion
+      println('|' + drawSideBar(i))
+    }
+    /*for(i <- 0 to 20) {
+
+      if (positions(0)(i) == 1) {
         println("|" +  generateEnemy + (" " * 37) + "|" + drawSideBar(i) )
-      } else if (positions(i) == 2) {
+      } else if (positions(0)(i) == 2) {
         println("|" + drawTower + (" " * 37) + "|" + drawSideBar(i) )
       } else {
         println("|"+(" " * 38)+"|" + drawSideBar(i) )
       }
 
-    }
+    }*/
     println( ("-"*40) + "\t" + ("-" * 10) )
   }
 
@@ -125,7 +167,7 @@ object Dtd {
   // add a tower to the grid
   def addTower() {
     log(availLogLine) = "Adding tower"
-    positions(0) = 2
+    positions(0)(0) = 2
   }
 
   // pause game
