@@ -1,0 +1,36 @@
+what is this?
+
+a desktop tower defense clone written
+in scala
+
+see: http://www.handdrawngames.com/DesktopTD/game3.asp
+( if you don't mind wasting half of your life away)
+
+HOWTO Play:
+  there really is nothing to play yet
+
+what you need:
+
+  * scala
+
+  * a color terminal (unless you are living in your cave
+  and still use a monochrome monitor I'm assuming you
+  have this -- the game really won't be fun w/out it)
+
+
+TODO:
+  * allow user too choose between creeps and towers
+  * multiplayer online? heads up and so forth?
+  * fix table layout
+  * convert enemy position to x,y coords
+  * convert tower position to x,y coords
+  * add in tower class
+  * add in enemy class
+  * start adding in some proper testing
+  * should not have to press enter for input
+  * create screen formatter to deal with formatting
+    everything correctly
+  * update pause to set timer to infinite
+  * toggle for logging
+  * figure out some way to place towers w/out memorizing
+    the board -- cursor based arrow keys??
