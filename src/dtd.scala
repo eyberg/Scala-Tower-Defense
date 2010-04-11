@@ -27,6 +27,7 @@ object Dtd {
       positions = moveWave()
       redrawScreen()
       drawBoard()
+      addBuffer()
       Thread.sleep(1000)
     }
 
@@ -112,7 +113,12 @@ object Dtd {
     println( ("-"*40) + "\t" + ("-" * 10) )
   }
 
+  // assume typical 80x25
   def redrawScreen() {
+    println("\n"*25)
+  }
+
+  def addBuffer() {
     println("\n"*20)
   }
 
