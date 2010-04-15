@@ -23,7 +23,7 @@ TODO:
   * multiplayer online? heads up and so forth?
   * fix table layout
   * start adding in some proper testing
-  * should not have to press enter for input
+  * should not have to press enter for input, jline?
   * create screen formatter to deal with formatting
     everything correctly
   * update pause to set timer to infinite

@@ -1,4 +1,6 @@
 #!/bin/sh
 
+CLASSPATH=lib/*:.
+
 rm -rf classes/*
-scalac -d classes src/dtd.scala
+scalac -cp $CLASSPATH -d classes src/dtd.scala

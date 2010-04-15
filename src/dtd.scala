@@ -1,9 +1,16 @@
+import jline._
+import java.io._
+import java.util._
+
 import scala.actors.Actor
 import scala.actors.Actor._
 
 object Dtd {
 
-  var colors = Array(Console.YELLOW_B, Console.BLUE_B, Console.GREEN_B, Console.RED_B, Console.BLINK) 
+  var colors = Array(scala.Console.YELLOW_B, scala.Console.BLUE_B,
+                    scala.Console.GREEN_B, scala.Console.RED_B, 
+                    scala.Console.BLINK) 
+
   var shapes = Array("X", "0", "%")
 
   // holds x,y positions of enemies
@@ -77,13 +84,13 @@ object Dtd {
     var color = colors((rand.nextDouble()*colors.size-1).toInt) 
     var shape = shapes((rand.nextDouble()*shapes.size-1).toInt)
 
-    color + shape + Console.RESET
+    color + shape + scala.Console.RESET
  
   }
 
   // draw a tower
   def drawTower:String = {
-    colors(4) + "T" + Console.RESET
+    colors(4) + "T" + scala.Console.RESET
   }
 
   // returns first available log line
@@ -107,7 +114,7 @@ object Dtd {
   def drawBanner():String = {
     colors(3) + 
       ("-" * 10 ) + " Scala Tower Defense" + ("-" * 10) +
-    Console.RESET
+    scala.Console.RESET
   }
 
   // draw game board as we see it
@@ -204,9 +211,15 @@ object Dtd {
   class listenInput() extends Actor {
     def act() {
       while(true) {
-        var uinput = readLine
+        var blah:Int = 0
+        var shit:char = 'a'
+        blah = new jline.ConsoleReader().readVirtualKey()
+
+        shit = blah.asInstanceOf[char]
+
+        //var uinput = readLine
         //var uinput:Char = System.in.read().asInstanceOf[Char]
-        processInput(uinput) //.toString)
+        processInput(shit.toString()) //.toString)
       }
     }
   }
