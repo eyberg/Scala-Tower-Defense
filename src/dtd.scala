@@ -60,7 +60,18 @@ object Dtd {
     }
  
     for(i <- 0 to positions.size - 1) {
-      result(0)((i+2)%21) = positions(0)(i)
+
+      for(c <- 0 to positions(i).size -1) {
+        
+        if(positions(i)(c) == 1) {
+          result(i)(c+1) = 1
+        } else if(positions(i)(c) == 2) {
+          result(i)(c) = 2
+        } else if(positions(i)(c) == 3) {
+          result(i)(c) = 3
+        }
+      }
+      
     }
 
     result
@@ -86,6 +97,11 @@ object Dtd {
 
     color + shape + scala.Console.RESET
  
+  }
+
+  // draw a cursor
+  def drawCursor:String = {
+    colors(4) + "C" + scala.Console.RESET
   }
 
   // draw a tower
@@ -137,6 +153,10 @@ object Dtd {
         // tower
         } else if (positions(i)(c) == 2) {
           print(drawTower)
+
+        // cursor
+        } else if (positions(i)(c) == 3) {
+          print(drawCursor)
 
         // blank
         } else {
@@ -195,15 +215,79 @@ object Dtd {
 
   // process user input
   def processInput(uinput:String) {
-    if(uinput == "t") {
-      addTower
-    } else if (uinput == "p") {
-      pauseGame
-    } else if (uinput == "d") {
-      destroyTower
-    } else if (uinput == "e") {
-      endGame
+    uinput match {
+      case "t" =>
+        addTower
+      case "p" =>
+        pauseGame
+      case "d" =>
+        destroyTower
+      case "e" =>
+        endGame
+      case _ =>
     }
+  }
+
+  def processArrows(digit:Int):Boolean = {
+    var found = false
+
+    digit match {
+      case 16 =>
+        var cursor = updateCursor("up")
+        return true
+      case 14 =>
+        var cursor = updateCursor("down")
+        return true
+      case 2 =>
+        var cursor = updateCursor("left")
+      case 6 =>
+        var cursor = updateCursor("right")
+      case _ =>
+        return false
+    }
+
+    return found
+  }
+
+  // returns cursor position sets the initial
+  // cursor to zero, zero
+  def updateCursor(direction:String):(Int, Int) = {
+
+    var initial = false
+    var point = (0,0)
+
+    for(i <- 0 to positions.size - 1) {
+      for(c <- 0 to positions(i).size - 1) {
+        if(positions(i)(c) == 3) {
+          log(availLogLine) = "updating position:" + i + ", " + c
+
+          positions(i)(c) = 0
+          direction match {
+            case "up" =>
+              positions(i-1)(c) = 3
+            case "down" =>
+              positions(i+1)(c) = 3
+            case "right" =>
+              positions(i)(c+1) = 3
+            case "left" =>
+              positions(i)(c-1) = 3
+          }
+
+          initial = true
+
+          point = (i, c+1)
+          return point
+        }
+      }
+    }
+
+    if(!initial) {
+      println("setting initial cursor")
+      positions(0)(0) = 3
+      point = (0,0)
+    }
+
+    return point
   }
 
   // listens for input continously
@@ -217,9 +301,11 @@ object Dtd {
 
         shit = blah.asInstanceOf[char]
 
-        //var uinput = readLine
-        //var uinput:Char = System.in.read().asInstanceOf[Char]
-        processInput(shit.toString()) //.toString)
+        // check for arrow keys first
+        if(!processArrows(blah)) {
+          processInput(shit.toString())
+        }
+
       }
     }
   }

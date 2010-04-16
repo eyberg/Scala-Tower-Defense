@@ -7,7 +7,12 @@ see: http://www.handdrawngames.com/DesktopTD/game3.asp
 ( if you don't mind wasting half of your life away)
 
 HOWTO Play:
-  there really is nothing to play yet
+  there really is nothing to play yet, but if you want
+to use your arrow keys to move around you can..
+
+hint: there are no bounds checking yet so start off by
+going to the right or down to get your cursor going --
+it spawns at 0,0
 
 what you need:
 
@@ -19,11 +24,11 @@ what you need:
 
 
 TODO:
+  * bounds checking for arrow keys
   * allow user too choose between creeps and towers
   * multiplayer online? heads up and so forth?
   * fix table layout
   * start adding in some proper testing
-  * should not have to press enter for input, jline?
   * create screen formatter to deal with formatting
     everything correctly
   * update pause to set timer to infinite
